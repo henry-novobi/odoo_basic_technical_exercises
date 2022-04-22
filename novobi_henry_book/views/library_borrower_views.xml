@@ -11,12 +11,13 @@
                 <header />
                 <sheet>
                     <group>
-                        <field string = "Borrower" name="borrower_ids" />
-                        <field string = "Books" name="books" />
+                        <field string = "Borrower" name="borrower_id" />
+                        <field string = "Books" name="book" />
+                        <field string = "Return Date" name="return_date" />
                     </group>
                 </sheet>
                 <footer>
-                    <button string="Confirm" class="btn btn-primary" special = 'save' />
+                    <button string="Confirm" class="btn btn-primary" type = 'object' name = 'write_Borrower' />
                     <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z" />
                 </footer>
             </form>

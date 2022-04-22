@@ -27,6 +27,7 @@ class LibraryBook(models.Model):
                 'target': 'new'
             }
 
+
     def library_borrower_action(self):
         form_popup_id = self.env.ref('novobi_henry_book.library_borrower_view_form').id
         self.ensure_one()
@@ -38,8 +39,8 @@ class LibraryBook(models.Model):
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
             'target': 'new',
-            'context': {'default_books': self.ISBN, 'default_borrower_ids': self.current_borrower_id},
-            'res_id': res_id.id,
+            'context': {'default_ISBN': self.ISBN, 'default_book': self.name, 'default_borrower_ids': self.current_borrower_id, 'default_return_date': self.date_return},
+            # 'res_id': res_id.id,
             'view_id': form_popup_id
         }
     

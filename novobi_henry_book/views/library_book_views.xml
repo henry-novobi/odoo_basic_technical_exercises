@@ -14,9 +14,9 @@
             </xpath>
             <xpath expr = "//field[@name='author_ids']" position = "after">
                 <field name = "ISBN"/>
-                <field name = "location_id"/>
+                <field name = "location_id"/>                
             </xpath>
-            <xpath expr = "//field[@name='short_name']" position = "after">
+            <xpath expr = "//field[@name='date_release']" position = "after">
                 <field name = "url"/>
                 <field name = "status"/>
                 <field name = "current_borrower_id"/>
@@ -52,14 +52,5 @@
             </xpath>
         </field>
     </record>
-    
 
-    <!-- <record id="library_borrower_action" model="ir.actions.act_window">
-        <field name="name">Borrower</field>
-        <field name="res_model">library.book</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="view_id" ref="library_borrower_view_form"/>
-    </record> -->
 </odoo>
