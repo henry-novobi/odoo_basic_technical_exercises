@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_book">
+        <t t-call="web.external_layout">
+            <div class="page">
+
+                <h2 class="mt16">
+                    <span t-field="doc.name"/>
+                </h2>
+
+                <div class="row mt32 mb32" id="information">
+                    <div name="info_short_name" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Short name:</strong>
+                        <p class="m-0" t-field="doc.short_name"/>
+                    </div>
+                    <div name="info_date_release" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Released Date:</strong>
+                        <p class="m-0" t-field="doc.date_release"/>
+                    </div>
+                    <div name="info_author" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Authors:</strong>
+                        <p class="m-0" t-field="doc.author_ids"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="report_print_book">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="novobi_library_book.report_book" />
+            </t>
+        </t>
+    </template>
+</odoo>

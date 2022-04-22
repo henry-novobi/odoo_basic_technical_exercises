@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright © 2022 Novobi, LLC. See LICENSE file for full copyright and licensing details. -->
+
+<odoo>
+
+    <!--############################## VIEWS ##############################-->
+    <record id="library_book_view_form_inherited" model="ir.ui.view">
+        <field name="name">library.book.view.form.inherited</field>
+        <field name="model">library.book</field>
+        <field name="inherit_id" ref = "novobi_library_book.library_book_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr = "/form/header" position = "inside">
+                <button name = "library_borrower_action" type = "object" string = "Lease"/>
+            </xpath>
+            <xpath expr = "//field[@name='author_ids']" position = "after">
+                <field name = "ISBN"/>
+                <field name = "location_id"/>
+            </xpath>
+            <xpath expr = "//field[@name='short_name']" position = "after">
+                <field name = "url"/>
+                <field name = "status"/>
+                <field name = "current_borrower_id"/>
+            </xpath>
+        </field>   
+    </record>
+
+
+    <record id="library_book_view_tree_inherited" model="ir.ui.view">
+        <field name="name">library.book.view.tree.inherited</field>
+        <field name="model">library.book</field>
+        <field name="inherit_id" ref = "novobi_library_book.library_book_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr = "//field[@name='date_release']" position = "after">
+                <field name = "ISBN"/>
+                <field name = "short_name"/>
+                <field name = "status"/>
+                <button name = "open_website_url" type = "object" string = "Goto Web"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="library_book_view_search_inherited" model="ir.ui.view">
+        <field name="name">library.book.view.search.inherited</field>
+        <field name="model">library.book</field>
+        <field name="inherit_id" ref = "novobi_library_book.library_book_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr = "//field[@name='name']" position = "after">
+                <field name = "ISBN"/>
+                <filter string = "Without Release Date" name = "without_release" domain = "[('date_release','=',False)]"/>
+                <filter name = "status" context = "{'group_by': 'status'}"/>
+            </xpath>
+        </field>
+    </record>
+    
+
+    <!-- <record id="library_borrower_action" model="ir.actions.act_window">
+        <field name="name">Borrower</field>
+        <field name="res_model">library.book</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="library_borrower_view_form"/>
+    </record> -->
+</odoo>

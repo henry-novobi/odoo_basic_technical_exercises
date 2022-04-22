@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_books" model="ir.actions.report">
+        <field name="name">Book Info</field>
+        <field name="model">library.book</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">novobi_library_book.report_print_book</field>
+        <field name="report_file">novobi_library_book.report_print_book</field>
+        <field name="print_report_name">'Book - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="novobi_library_book.model_library_book"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
