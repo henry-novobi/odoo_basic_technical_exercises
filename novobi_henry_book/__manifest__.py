@@ -27,8 +27,8 @@
         'security/ir.model.access.csv',
 
         # ============================== REPORT =============================
-        'report/book_reports.xml',
-        'report/book_templates.xml',
+        'report/booklocation_reports.xml',
+        'report/booklocation_templates.xml',
         # ============================== WIZARDS =============================  
         #           
     ],

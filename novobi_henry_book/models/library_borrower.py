@@ -5,10 +5,10 @@ class LibraryBorrower(models.TransientModel):
     _name = "library.borrower"
     _description = "Library Borrower"
 
-    borrower_id = fields.Many2one("res.partner", require = True, store = True)
+    borrower_id = fields.Many2one("res.partner", required = True)
     book = fields.Char("Book", readonly = True)
     ISBN = fields.Char("ISBN", readonly = True)
-    return_date = fields.Date("Borrower Date", require = True)
+    return_date = fields.Date("Borrower Date", required = True)
 
     # @api.model
     # def default_get(self, fields_list):
@@ -20,7 +20,8 @@ class LibraryBorrower(models.TransientModel):
     def write_Borrower(self):
         self.ensure_one()
         store = self.env["library.book"].search([('ISBN','=',self.ISBN)])
-        store.write({"current_borrower_id": self.borrower_id, "date_return": self.return_date, "status": "borrowed"})
+        if store and self.borrower_id:
+            store.write({"current_borrower_id": self.borrower_id, "date_return": self.return_date, "status": "borrowed"})
         return {'type': 'ir.actions.act_window_close'}
 
     # @api.depends('borrower_ids.current_borrower_id')

@@ -23,4 +23,3 @@
     <menuitem name="Book Location" id="library_booklocation_menu" parent="novobi_library_book.library_book_menu" action="library_booklocation_action" />
    
 </odoo>
-

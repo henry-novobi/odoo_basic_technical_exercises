@@ -6,8 +6,10 @@ class LibraryBookLocation(models.Model):
     _description = 'Library Book Location'
 
     name = fields.Char('Name')
-    book_ids = fields.One2many('library.book', 'ISBN', string = "Books")
+    book_ids = fields.One2many('library.book', 'id', string = "Books", compute = '_compute_total_book')
     total_available_books = fields.Integer('Total Available Book', compute='_compute_total_book')
+    total_books = fields.Integer('Total Book', compute='_compute_total_book')
+
 
     # Rule: do not use sql constraint
     # _sql_constraints = [
@@ -26,4 +28,6 @@ class LibraryBookLocation(models.Model):
     # @api.depends('book_ids')
     def _compute_total_book(self):
         for record in self:
-            record.total_available_books = record.env['library.book'].search_count([('location_id', '=', record.name)])
+            record.total_available_books = record.env['library.book'].search_count(['&',('location_id', '=', record.name),('status', '=', 'available')])
+            record.total_books = record.env['library.book'].search_count([('location_id', '=', record.name)])
+            record.book_ids = record.env['library.book'].search([('location_id', '=', record.name)])

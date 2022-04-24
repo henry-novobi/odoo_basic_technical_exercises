@@ -29,20 +29,27 @@ class LibraryBook(models.Model):
 
 
     def library_borrower_action(self):
-        form_popup_id = self.env.ref('novobi_henry_book.library_borrower_view_form').id
         self.ensure_one()
-        res_id = self.env['library.book'].search([('ISBN', '=', self.ISBN)])
-        print("___________OK____________",res_id.name)
-        print("____________",form_popup_id)
+        form_popup_id = self.env.ref('novobi_henry_book.library_borrower_view_form').id
+        # res_id = self.env['library.book'].search([('ISBN', '=', self.ISBN)])
+        # print("___________OK____________",res_id.name)
+        # print("____________",form_popup_id)
         return {
             'res_model': 'library.borrower',
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
             'target': 'new',
-            'context': {'default_ISBN': self.ISBN, 'default_book': self.name, 'default_borrower_ids': self.current_borrower_id, 'default_return_date': self.date_return},
+            'context': {'default_ISBN': self.ISBN, 'default_book': self.name, 'default_borrower_id': self.current_borrower_id.id, 'default_return_date': self.date_return},
             # 'res_id': res_id.id,
             'view_id': form_popup_id
         }
+
+    def _change_book_status(self, status):
+        for record in self:
+            record.status = status
+            record.current_borrower_id = False
+            record.date_return = False
+            print("Changed ", record.name ," to ", status)
     
     @api.onchange('date_release')
     def _onchange_date_release(self):

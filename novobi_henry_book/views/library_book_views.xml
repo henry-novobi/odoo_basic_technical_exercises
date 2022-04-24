@@ -10,7 +10,7 @@
         <field name="inherit_id" ref = "novobi_library_book.library_book_view_form"/>
         <field name="arch" type="xml">
             <xpath expr = "/form/header" position = "inside">
-                <button name = "library_borrower_action" type = "object" string = "Lease"/>
+                <button name = "library_borrower_action" type = "object" string = "Lease" groups = "novobi_library_book.group_librarian,novobi_henry_book.group_librarian_assistant"/>
             </xpath>
             <xpath expr = "//field[@name='author_ids']" position = "after">
                 <field name = "ISBN"/>
@@ -50,6 +50,34 @@
                 <filter string = "Without Release Date" name = "without_release" domain = "[('date_release','=',False)]"/>
                 <filter name = "status" context = "{'group_by': 'status'}"/>
             </xpath>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.server" id="action_mark_book_lost">
+        <field name="name">Mark as Lost</field>
+        <field name="sequence">6</field>
+        <field name="model_id" ref="model_library_book"/>
+        <field name="binding_model_id" ref="model_library_book"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="groups_id" eval="[(4, ref('novobi_library_book.group_librarian')), (4, ref('group_librarian_assistant'))]"/>
+        <field name="code">
+             action = records._change_book_status('lost')
+        </field>
+    </record>
+
+
+    <record model="ir.actions.server" id="action_mark_book_available">
+        <field name="name">Mark as Available</field>
+        <field name="sequence">7</field>
+        <field name="model_id" ref="model_library_book"/>
+        <field name="binding_model_id" ref="model_library_book"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="groups_id" eval="[(4, ref('novobi_library_book.group_librarian')), (4, ref('group_librarian_assistant'))]"/>
+        <field name="code">
+             action = records._change_book_status('available')
         </field>
     </record>
 
