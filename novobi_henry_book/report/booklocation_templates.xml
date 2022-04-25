@@ -9,7 +9,7 @@
                     <span t-field = "doc.env.user.company_id.state_id"/>
                     <span>,    </span>
                     <span t-field ="doc.env.user.company_id.city"/>
-                    <p><t t-esc="doc.env.user.company_id.country_id"/></p>
+                    <p><t t-esc="doc.env.user.company_id.country_id.name"/></p>
                 </div>
 
                 <h2 class="mt16">

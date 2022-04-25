@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 <data noupdate="1">
-  <record id="email_template_library_book_to_librarians" model="mail.template">
+  <record id="email_template_librarians" model="mail.template">
     <field name="name">Library Book: Notify the overdue books to librarians</field>
     <field name="email_from"></field> <!-- Set in the code  -->
     <field name="subject">Overdue Books - {{ format_date(ctx.get('current_date')) }}</field>
@@ -18,7 +18,7 @@
           <ul>
             <t t-foreach="ctx.get('overdue_books_lst')" t-as="book">
               <li>
-                <strong><t t-esc="book['name']"/></strong> by <t t-esc="book['author_name']"/>
+                <strong><t t-esc="book['name']"/></strong> by <t t-esc="book['author_ids'].mapped('name')"/>
               </li>
             </t>
           </ul>
@@ -26,34 +26,5 @@
       </div>
     </field>
   </record>
-
-  <record id="email_template_library_book_to_borrowers" model="mail.template">
-    <field name="name">Library Book: Notify the overdue books to borrowers</field>
-    <field name="email_from"></field> <!-- Set in the code  -->
-    <field name="subject">Overdue Books</field>
-    <field name="email_to"></field> <!-- Set in the code  -->
-    <field name="model_id" ref="model_library_book" />
-    <field name="auto_delete" eval="False" />
-    <field name="body_html" type="html">
-      <div style="margin: 0px; padding: 0px;">
-        <p style="margin: 0px; padding: 0px; font-size: 13px;">
-          Hello,
-          <br />
-          <br />
-          You borrowed some books from our library but they are over due. Please return them as soon as possible. This list of overdue books includes:
-          <ul>
-            <t t-foreach="ctx.get('overdue_books_lst')" t-as="book">
-              <li>
-                <strong><t t-esc="book['name']"/></strong> by <t t-esc="book['author_name']"/>
-              </li>
-            </t>
-          </ul>
-          <br />
-           Do not hesitate to contact us if you have any questions.
-          <br />
-        </p>
-      </div>
-    </field>
-  </record>  
 </data>
 </odoo>

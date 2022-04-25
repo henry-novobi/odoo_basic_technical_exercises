@@ -2,12 +2,14 @@
 # See LICENSE file for full copyright and licensing details.
 from email.policy import default
 from odoo import models, fields, api, exceptions
-import datetime
+from datetime import datetime
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class LibraryBook(models.Model):
-    _inherit = "library.book"
-    # _name = 'library.book'
+    _inherit = ["library.book",'mail.thread', 'mail.activity.mixin']
+    _name = 'library.book'
 
     ISBN = fields.Char('ISBN', required = True)
     status = fields.Selection(selection = [('not published','Not Published'), ('available','Available'), ('borrowed','Borrowed'), ('lost','Lost')], 
@@ -50,6 +52,21 @@ class LibraryBook(models.Model):
             record.current_borrower_id = False
             record.date_return = False
             print("Changed ", record.name ," to ", status)
+
+    def book_returned_before_today(self):
+        mail_template = self.env.ref('novobi_henry_book.email_template_librarians')
+        overdue = self.env['library.book'].search(['&',('status', '=', "borrowed"),"|", ('date_return','<', datetime.now()), ('date_return','=', False)])
+        ctx  = {'overdue_books_lst': overdue}
+        email_values = {
+            'email_from': "henry.le@novobi.com",
+            'email_to': "henry.le@novobi.com",
+            'email_cc': False,
+            'recipient_ids': [],
+            'partner_ids': [],
+        }
+        mail_template.with_context(**ctx).send_mail(self.env.user.company_id.id, force_send=True, email_values=email_values)
+        _logger.info("Send email to Librarian")
+                
     
     @api.onchange('date_release')
     def _onchange_date_release(self):

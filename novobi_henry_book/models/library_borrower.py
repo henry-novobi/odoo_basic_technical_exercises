@@ -22,6 +22,7 @@ class LibraryBorrower(models.TransientModel):
         store = self.env["library.book"].search([('ISBN','=',self.ISBN)])
         if store and self.borrower_id:
             store.write({"current_borrower_id": self.borrower_id, "date_return": self.return_date, "status": "borrowed"})
+            # store.write({"message_ids": "Change to Borrowed Status"})
         return {'type': 'ir.actions.act_window_close'}
 
     # @api.depends('borrower_ids.current_borrower_id')

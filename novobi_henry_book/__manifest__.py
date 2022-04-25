@@ -16,6 +16,7 @@
     "data": [
         # ============================== DATA =================================
         'data/mail_template_data.xml',
+        'data/schedule_book_return.xml',
 
         # ============================== VIEWS ================================
         'views/library_book_views.xml',
@@ -34,4 +35,10 @@
     ],
     "application": False,
     "installable": True,
+    # 'assets': {
+
+    #     'web.assets_backend': [
+    #         'novobi_henry_book/static/src/js/datetimeWidget.js',
+    #     ],
+    # }
 }
