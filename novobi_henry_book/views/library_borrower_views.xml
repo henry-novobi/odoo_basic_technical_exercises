@@ -13,7 +13,7 @@
                     <group>
                         <field string = "Borrower" name="borrower_id" />
                         <field string = "Books" name="book" />
-                        <field string = "Return Date" name="return_date" />
+                        <field string = "Return Date" name="return_date" widget = "curdaywid"/>
                     </group>
                 </sheet>
                 <footer>

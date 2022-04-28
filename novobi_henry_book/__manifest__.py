@@ -35,10 +35,10 @@
     ],
     "application": False,
     "installable": True,
-    # 'assets': {
+    'assets': {
 
-    #     'web.assets_backend': [
-    #         'novobi_henry_book/static/src/js/datetimeWidget.js',
-    #     ],
-    # }
+        'web.assets_backend': [
+            'novobi_henry_book/static/src/js/datetimeWidget.js',
+        ],
+    }
 }

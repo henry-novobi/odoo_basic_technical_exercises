@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 from email.policy import default
 from odoo import models, fields, api, exceptions
-from datetime import datetime
+from datetime import datetime,date
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -55,7 +55,7 @@ class LibraryBook(models.Model):
 
     def book_returned_before_today(self):
         mail_template = self.env.ref('novobi_henry_book.email_template_librarians')
-        overdue = self.env['library.book'].search(['&',('status', '=', "borrowed"),"|", ('date_return','<', datetime.now()), ('date_return','=', False)])
+        overdue = self.env['library.book'].search(['&',('status', '=', "borrowed"),"|", ('date_return','<', date.today()), ('date_return','=', False)])
         ctx  = {'overdue_books_lst': overdue}
         email_values = {
             'email_from': "henry.le@novobi.com",
@@ -71,7 +71,7 @@ class LibraryBook(models.Model):
     @api.onchange('date_release')
     def _onchange_date_release(self):
         self.ensure_one()
-        if(self.date_release and self.date_release > datetime.date.today()):
+        if(self.date_release and self.date_release > date.today()):
             self.status = 'not published'
         else:
             self.status = 'available'

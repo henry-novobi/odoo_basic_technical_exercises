@@ -8,7 +8,7 @@ class LibraryBorrower(models.TransientModel):
     borrower_id = fields.Many2one("res.partner", required = True)
     book = fields.Char("Book", readonly = True)
     ISBN = fields.Char("ISBN", readonly = True)
-    return_date = fields.Date("Borrower Date", required = True)
+    return_date = fields.Datetime("Borrower Date", required = True)
 
     # @api.model
     # def default_get(self, fields_list):
