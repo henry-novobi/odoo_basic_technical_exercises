@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="library_booklocation_view_tree" model="ir.ui.view">
+        <field name="name">Library Book Location List</field>
+        <field name="model">library.booklocation</field>
+        <field name="arch" type="xml">
+            <tree editable = "top">
+                <field name="name" />
+                <field name="total_available_books" />
+            </tree>
+        </field>
+    </record>
+
+    <!--############################## ACTIONS ##############################-->
+    <record id='library_booklocation_action' model='ir.actions.act_window'>
+        <field name="name">Library Book Location</field>
+        <field name="res_model">library.booklocation</field>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+    
+
+    <menuitem name="Book Location" id="library_booklocation_menu" parent="novobi_library_book.library_book_menu" action="library_booklocation_action" />
+   
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright © 2022 Novobi, LLC. See LICENSE file for full copyright and licensing details. -->
+
+<odoo>
+    <!--############################## VIEWS ##############################-->
+    <record id="library_borrower_view_form" model="ir.ui.view">
+        <field name="name">Library Borrower Form</field>
+        <field name="model">library.borrower</field>
+        <field name="arch" type="xml">
+            <form>
+                <header />
+                <sheet>
+                    <group>
+                        <field string = "Borrower" name="borrower_id" />
+                        <field string = "Books" name="book" />
+                        <field string = "Return Date" name="return_date" widget = "curdaywid"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" class="btn btn-primary" type = 'object' name = 'write_Borrower' />
+                    <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
